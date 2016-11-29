@@ -1,6 +1,5 @@
-.html5-video-player.vjs-paused {
-  .vjs-big-play-button {
-    display: block;
-  }
+.brightcove-video .video-wrapper .html5-video-player.vjs-paused .vjs-big-play-button, .view-mode-full .field-video .video-wrapper .html5-video-player.vjs-paused .vjs-big-play-button, .view-mode-featured_large .field-video .video-wrapper .html5-video-player.vjs-paused .vjs-big-play-button, .large-video-wrapper .field-video .video-wrapper .html5-video-player.vjs-paused .vjs-big-play-button {
+  display: block;
 }
+
 
