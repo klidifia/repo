@@ -49,7 +49,7 @@ videojs.plugin('multipleVideo', function() {
               }
             ]
           }
-        ];
+        ]
       }
     ]
 
