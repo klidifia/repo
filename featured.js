@@ -16,6 +16,7 @@
     preRoll = function() {
       if (featuredItem || player.options()['data-featured-video-id']) {
         featuredItem = featuredItem || player.options()['data-featured-video-id'];
+        console.log('Featured item:' + featuredItem);
         player.catalog.getVideo(featuredItem, function (error, video) {
           if (!error) {
             if (player.hls && player.hls.resetSrc_) {
@@ -42,8 +43,16 @@
       // player.play()
 
       player.catalog.getVideo('5231288516001', function(error, video) {
-        // Deal with error?
-        player.catalog.load(video);
+        if (!error) {
+          if (player.hls && player.hls.resetSrc_) {
+            player.hls.resetSrc_();
+          } else {
+            player.src('');
+          }
+          window.setTimeout(function() {
+            player.catalog.load(video);
+          }, 100);
+        }
       });
 
     });
