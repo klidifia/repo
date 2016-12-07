@@ -32,12 +32,20 @@
     }
 
     player.one('loadstart', function() {
+      console.log('PLAYER LOADSTART...')
       preRoll();
     });
 
     player.one('ended', function() {
-      player.src({"type":"video/mp4", "src":"http://solutions.brightcove.com/bcls/assets/videos/Bird_Titmouse.mp4"});
-      player.play()
+      console.log('PLAYER ENDED NOW GO TO MAIN VIDEO...')
+      // player.src({"type":"video/mp4", "src":"http://solutions.brightcove.com/bcls/assets/videos/Bird_Titmouse.mp4"});
+      // player.play()
+
+      player.catalog.getVideo('5231288516001', function(error, video) {
+        // Deal with error?
+        player.catalog.load(video);
+      });
+
     });
   }
 
