@@ -6,7 +6,6 @@
 
   var featured = function(settings) {
     var player = this;
-    var bause = this;
     var options = {loadVideoNotInPlaylist:true};
     var featuredItem, playlist, index, queries, query, i;
     var selectItem, selectWhenReady, iterations = 0;
@@ -17,7 +16,7 @@
     queries = window.location.search.slice(1).split('&');
     for (i = 0; i < queries.length; i++) {
       query = queries[i].split('=');
-      if (query[0] === 'featuredVideoId' && query[1]) {
+      if (query[0] === 'BAUSE' && query[1]) {
         featuredItem = query[1];
       }
     }
