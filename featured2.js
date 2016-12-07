@@ -7,43 +7,31 @@ videojs.plugin('multipleVideo', function() {
     currentVideoIndex = 0,
     newVideo,
     firstVideo = true,
-    playlistData = [
-      {
-        "name":"Tiger",
-        "thumbnailURL":"//solutions.brightcove.com/bcls/assets/images/Tiger.jpg",
-        "sources":[
-          {
-            "name":"Great Blue Heron",
-            "thumbnailURL":"//solutions.brightcove.com/bcls/assets/images/Great-Blue-Heron.png",
-            "sources":[
-              {
-                "type":"application/x-mpegURL",
-                "src":"//solutions.brightcove.com/bcls/assets/videos/Great-Blue-Heron.m3u8"
-              },
-              {
-                "type":"video/mp4",
-                "src":"//solutions.brightcove.com/bcls/assets/videos/Great-Blue-Heron.mp4"
-              }
-            ]},
-          {
-            "name":"Birds of a Feather",
-            "thumbnailURL":"//solutions.brightcove.com/bcls/assets/images/BirdsOfAFeather.png",
-            "sources":[
-              {
-                "type":"video/mp4",
-                "src":"//solutions.brightcove.com/bcls/assets/videos/BirdsOfAFeather.mp4"
-              }
-            ]},
-          {
-            "name":"Sea Marvels",
-            "thumbnailURL":"//solutions.brightcove.com/bcls/assets/images/Sea Marvels.png",
-            "sources":[
-              {
-                "type":"video/mp4",
-                "src":"//solutions.brightcove.com/bcls/assets/videos/Sea-Marvels.mp4"
-              }
-            ]}
-        ];
+    playlistData = [{
+      "name": "Great Blue Heron",
+      "thumbnailURL": "//solutions.brightcove.com/bcls/assets/images/Great-Blue-Heron.png",
+      "sources": [{
+        "type": "application/x-mpegURL",
+        "src": "//solutions.brightcove.com/bcls/assets/videos/Great-Blue-Heron.m3u8"
+      }, {
+        "type": "video/mp4",
+        "src": "//solutions.brightcove.com/bcls/assets/videos/Great-Blue-Heron.mp4"
+      }]
+    }, {
+      "name": "Birds of a Feather",
+      "thumbnailURL": "//solutions.brightcove.com/bcls/assets/images/BirdsOfAFeather.png",
+      "sources": [{
+        "type": "video/mp4",
+        "src": "//solutions.brightcove.com/bcls/assets/videos/BirdsOfAFeather.mp4"
+      }]
+    }, {
+      "name": "Sea Marvels",
+      "thumbnailURL": "//solutions.brightcove.com/bcls/assets/images/Sea Marvels.png",
+      "sources": [{
+        "type": "video/mp4",
+        "src": "//solutions.brightcove.com/bcls/assets/videos/Sea-Marvels.mp4"
+      }]
+    }];
 
   function loadVideo () {
     if (currentVideoIndex < playlistData.length) {
