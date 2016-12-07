@@ -6,8 +6,7 @@
 
   var featured = function(settings) {
     var player = this;
-    var options = {loadVideoNotInPlaylist:true};
-    var featuredItem, mainItem, playlist, index, query, i;
+    var featuredItem, mainItem, index, query, i;
     var preRoll, mainVideo, selectWhenReady, iterations = 0;
     var mergeOptions = videojs.mergeOptions || videojs.util.mergeOptions;
 
@@ -16,7 +15,6 @@
     preRoll = function() {
       if (featuredItem || player.options()['data-featured-video-id']) {
         featuredItem = featuredItem || player.options()['data-featured-video-id'];
-        console.log('Featured item:' + featuredItem);
         player.catalog.getVideo(featuredItem, function (error, video) {
           if (!error) {
             if (player.hls && player.hls.resetSrc_) {
@@ -38,9 +36,7 @@
     });
 
     player.one('ended', function() {
-      console.log('PLAYER ENDED NOW GO TO MAIN VIDEO...')
-      // player.src({"type":"video/mp4", "src":"http://solutions.brightcove.com/bcls/assets/videos/Bird_Titmouse.mp4"});
-      // player.play()
+      console.log('PLAYER ENDED NOW THE MAIN VIDEO 15:48')
 
       player.catalog.getVideo('5231288516001', function(error, video) {
         if (!error) {
@@ -54,7 +50,7 @@
           }, 100);
         }
       });
-
+      player.play();
     });
   }
 
