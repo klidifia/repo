@@ -16,45 +16,26 @@
     queries = window.location.search.slice(1).split('&');
     for (i = 0; i < queries.length; i++) {
       query = queries[i].split('=');
-      if (query[0] === 'BAUSE' && query[1]) {
+      if (query[0] === 'featuredVideoId' && query[1]) {
         featuredItem = query[1];
       }
     }
 
     selectItem = function() {
-      if (player.playlist().length > 0 &&
-        (featuredItem || player.options()['data-featured-video-id'])) {
+      if (featuredItem || player.options()['data-featured-video-id']) {
         featuredItem = featuredItem || player.options()['data-featured-video-id'];
-        playlist = player.playlist();
-        if (featuredItem.indexOf('ref:') === 0) {
-          index = playlist.map(function(x) {return x.reference_id; }).indexOf(featuredItem.split(':')[1]);
-        } else {
-          index = playlist.map(function(x) {return x.id; }).indexOf(featuredItem);
-        }
-        if (index > -1 ) {
-          // Reset source to prevent loading error with second video
-          if (player.hls && player.hls.resetSrc_) {
-            player.hls.resetSrc_();
-          } else {
-            player.src('');
-          }
-          window.setTimeout(function(){
-            player.playlist.currentItem(index);
-          }, 100);
-        } else if (options.loadVideoNotInPlaylist) {
-          player.catalog.getVideo(featuredItem, function (error, video) {
-            if (!error) {
-              if (player.hls && player.hls.resetSrc_) {
-                player.hls.resetSrc_();
-              } else {
-                player.src('');
-              }
-              window.setTimeout(function(){
-                player.catalog.load(video);
-              }, 100);
+        player.catalog.getVideo(featuredItem, function (error, video) {
+          if (!error) {
+            if (player.hls && player.hls.resetSrc_) {
+              player.hls.resetSrc_();
+            } else {
+              player.src('');
             }
-          });
-        }
+            window.setTimeout(function() {
+              player.catalog.load(video);
+            }, 100);
+          }
+        });
       }
     }
 
