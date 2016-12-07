@@ -7,19 +7,11 @@
   var featured = function(settings) {
     var player = this;
     var options = {loadVideoNotInPlaylist:true};
-    var featuredItem, playlist, index, queries, query, i;
+    var featuredItem, playlist, index, query, i;
     var selectItem, selectWhenReady, iterations = 0;
     var mergeOptions = videojs.mergeOptions || videojs.util.mergeOptions;
 
     options = mergeOptions(options,settings);
-
-    queries = window.location.search.slice(1).split('&');
-    for (i = 0; i < queries.length; i++) {
-      query = queries[i].split('=');
-      if (query[0] === 'featuredVideoId' && query[1]) {
-        featuredItem = query[1];
-      }
-    }
 
     selectItem = function() {
       if (featuredItem || player.options()['data-featured-video-id']) {
@@ -39,25 +31,14 @@
       }
     }
 
-    selectWhenReady = function() {
-      if (player.mediainfo) {
-        selectItem();
-      }
-      else if (iterations++ < 10) {
-        window.setTimeout(selectWhenReady,100);
-      }
-    }
+    player.one('loadstart', function() {
+      selectItem();
+    });
 
-    // Flash doesn't fire loadstart/loadedmetadata until playback starts
-    // TODO: switch to playlistchange
-    if (player.techName === 'Flash') {
-      selectWhenReady();
-    }
-    else {
-      player.one('loadstart', function(){
-        selectItem();
-      });
-    }
+    player.one('ended', function() {
+      console.log('Video ended');
+      alert('Video ended');
+    });
   }
 
   videojs.plugin('featured', featured);
