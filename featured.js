@@ -13,7 +13,7 @@
     options = mergeOptions(options,settings);
 
     preRoll = function() {
-      console.log('Preroll function: 11:11')
+      console.log('Preroll function: 11:12')
       if (featuredItem || player.options()['data-featured-video-id']) {
         featuredItem = featuredItem || player.options()['data-featured-video-id'];
         player.catalog.getVideo(featuredItem, function (error, video) {
@@ -27,18 +27,18 @@
     }
 
     player.one('loadstart', function() {
-      console.log('Load function: 11:11')
+      console.log('Load function: 11:12')
       preRoll();
     });
 
     player.one('ended', function() {
-      console.log('Ended function: 11:11')
+      console.log('Ended function: 11:12')
 
-      player.catalog.getVideo('5231288516001', function(error, video) {
+      player.catalog.getVideo('5231307785001', function(error, video) {
         if (!error) {
           window.setTimeout(function() {
             player.catalog.load(video);
-            $('.vjs-social-overlay').addClass('vjs-hidden');
+            jQuery('.vjs-social-overlay').addClass('vjs-hidden');
           }, 100);
           window.setTimeout(function() {
             player.play();
