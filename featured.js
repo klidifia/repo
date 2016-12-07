@@ -7,13 +7,13 @@
   var featured = function(settings) {
     var player = this;
     var options = {loadVideoNotInPlaylist:true};
-    var featuredItem, playlist, index, query, i;
-    var selectItem, selectWhenReady, iterations = 0;
+    var featuredItem, mainItem, playlist, index, query, i;
+    var preRoll, mainVideo, selectWhenReady, iterations = 0;
     var mergeOptions = videojs.mergeOptions || videojs.util.mergeOptions;
 
     options = mergeOptions(options,settings);
 
-    selectItem = function() {
+    preRoll = function() {
       if (featuredItem || player.options()['data-featured-video-id']) {
         featuredItem = featuredItem || player.options()['data-featured-video-id'];
         player.catalog.getVideo(featuredItem, function (error, video) {
@@ -31,13 +31,30 @@
       }
     }
 
+    mainVideo = function() {
+      if (mainItem || player.options()['data-video-id']) {
+        mainItem = mainItem || player.options()['data-video-id'];
+        player.catalog.getVideo(mainItem, function (error, video) {
+          if (!error) {
+            if (player.hls && player.hls.resetSrc_) {
+              player.hls.resetSrc_();
+            } else {
+              player.src('');
+            }
+            window.setTimeout(function() {
+              player.catalog.load(video);
+            }, 100);
+          }
+        });
+      }
+    }
+
     player.one('loadstart', function() {
-      selectItem();
+      preRoll();
     });
 
     player.one('ended', function() {
-      console.log('Video ended');
-      alert('Video ended');
+      mainVideo();
     });
   }
 
