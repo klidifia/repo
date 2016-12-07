@@ -13,15 +13,11 @@
     options = mergeOptions(options,settings);
 
     preRoll = function() {
+      console.log('Preroll function: 16:02')
       if (featuredItem || player.options()['data-featured-video-id']) {
         featuredItem = featuredItem || player.options()['data-featured-video-id'];
         player.catalog.getVideo(featuredItem, function (error, video) {
           if (!error) {
-            if (player.hls && player.hls.resetSrc_) {
-              player.hls.resetSrc_();
-            } else {
-              player.src('');
-            }
             window.setTimeout(function() {
               player.catalog.load(video);
             }, 100);
@@ -31,26 +27,21 @@
     }
 
     player.one('loadstart', function() {
-      console.log('PLAYER LOADSTART...')
+      console.log('Load function: 16:02')
       preRoll();
     });
 
     player.one('ended', function() {
-      console.log('PLAYER ENDED NOW THE MAIN VIDEO 15:48')
+      console.log('Ended function: 16:02')
 
       player.catalog.getVideo('5231288516001', function(error, video) {
         if (!error) {
-          if (player.hls && player.hls.resetSrc_) {
-            player.hls.resetSrc_();
-          } else {
-            player.src('');
-          }
           window.setTimeout(function() {
             player.catalog.load(video);
+            player.play();
           }, 100);
         }
       });
-      player.play();
     });
   }
 
