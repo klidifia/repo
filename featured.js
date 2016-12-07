@@ -31,30 +31,13 @@
       }
     }
 
-    mainVideo = function() {
-      if (mainItem || player.options()['data-video-id']) {
-        mainItem = mainItem || player.options()['data-video-id'];
-        player.catalog.getVideo(mainItem, function (error, video) {
-          if (!error) {
-            if (player.hls && player.hls.resetSrc_) {
-              player.hls.resetSrc_();
-            } else {
-              player.src('');
-            }
-            window.setTimeout(function() {
-              player.catalog.load(video);
-            }, 100);
-          }
-        });
-      }
-    }
-
     player.one('loadstart', function() {
       preRoll();
     });
 
     player.one('ended', function() {
-      mainVideo();
+      player.src({"type":"video/mp4", "src":"http://solutions.brightcove.com/bcls/assets/videos/Bird_Titmouse.mp4"});
+      player.play()
     });
   }
 
