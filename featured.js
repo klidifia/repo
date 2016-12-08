@@ -13,7 +13,6 @@
     options = mergeOptions(options,settings);
 
     preRoll = function() {
-      console.log('Preroll function: 14:40')
       if (featuredItem || player.options()['data-featured-video-id']) {
         featuredItem = featuredItem || player.options()['data-featured-video-id'];
         player.catalog.getVideo(featuredItem, function (error, video) {
@@ -25,12 +24,18 @@
     }
 
     player.one('loadstart', function() {
-      console.log('Load function: 14:40')
+      console.log('Thu 8 Dec @ 15:24')
       preRoll();
     });
 
     player.one('ended', function() {
-      console.log('Ended function: 14:40')
+      // jQuery('.vjs-close-button').trigger('click');
+      // jQuery('.html5-video-player').removeClass('vjs-controls-disabled');
+      jQuery('.vjs-social-overlay').addClass('vjs-hidden');
+
+      player.trigger('loadstart');
+
+      // @TODO: We probably want to do something about the .vjs-big-play-button.
 
       player.catalog.getVideo('5231307785001', function(error, video) {
         if (!error) {
