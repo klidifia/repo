@@ -5,49 +5,99 @@
   Array.prototype.indexOf||(Array.prototype.indexOf=function(r,t){var n;if(null==this)throw new TypeError('"this" is null or not defined');var e=Object(this),i=e.length>>>0;if(0===i)return-1;var a=+t||0;if(1/0===Math.abs(a)&&(a=0),a>=i)return-1;for(n=Math.max(a>=0?a:i-Math.abs(a),0);i>n;){if(n in e&&e[n]===r)return n;n++}return-1});
 
   var featured = function(settings) {
-    var player = this;
-    var featuredItem, mainItem, index, query, i;
-    var preRoll, mainVideo, selectWhenReady, iterations = 0;
-    var mergeOptions = videojs.mergeOptions || videojs.util.mergeOptions;
 
-    options = mergeOptions(options,settings);
+    var myPlayer = this,
+        currentVideoIndex = 0,
+        newVideo,
+        firstVideo = true;
 
-    preRoll = function() {
-      console.log('Preroll function: 13:35')
-      if (featuredItem || player.options()['data-featured-video-id']) {
-        featuredItem = featuredItem || player.options()['data-featured-video-id'];
-        player.catalog.getVideo(featuredItem, function (error, video) {
+    function loadVideo () {
+      if (currentVideoIndex == 0) {
+        // load the new video
+        // myPlayer.src(playlistData[currentVideoIndex].sources);
+        myPlayer.catalog.getVideo('5231307785001', function(error, video) {
           if (!error) {
-            window.setTimeout(function() {
-              player.catalog.load(video);
-            }, 100);
+            myPlayer.catalog.load(video);
           }
         });
-      }
-    }
 
-    player.one('loadstart', function() {
-      console.log('Load function: 13:35')
-      preRoll();
-    });
-
-    player.one('ended', function() {
-      console.log('Ended function: 13:35')
-      console.log(player);
-
-      player.catalog.getVideo('5231307785001', function(error, video) {
-        if (!error) {
-          console.log('Triggering the close share screen button O_o');
-          jQuery('.vjs-close-button').trigger('click');
-          window.setTimeout(function() {
-            player.catalog.load(video);
-            // jQuery('.html5-video-player').removeClass('vjs-controls-disabled');
-            // jQuery('.vjs-social-overlay').addClass('vjs-hidden');
-            player.play();
-          }, 100);
+        // increment the current video index
+        currentVideoIndex++;
+        // play the video
+        if(firstVideo) {
+          firstVideo = false;
+        } else {
+          myPlayer.play();
         }
-      });
+      } else {
+        myPlayer.catalog.getVideo('5231288516001', function(error, video) {
+          if (!error) {
+            myPlayer.catalog.load(video);
+          }
+        });
+
+        // increment the current video index
+        currentVideoIndex++;
+        // play the video
+        if(firstVideo) {
+          firstVideo = false;
+        } else {
+          myPlayer.play();
+        }
+      }
+    };
+
+    myPlayer.on("ended", function () {
+      loadVideo();
     });
+
+    // load the first video
+    loadVideo();
+
+
+    // var player = this;
+    // var featuredItem, mainItem, index, query, i;
+    // var preRoll, mainVideo, selectWhenReady, iterations = 0;
+    // var mergeOptions = videojs.mergeOptions || videojs.util.mergeOptions;
+    //
+    // options = mergeOptions(options,settings);
+    //
+    // preRoll = function() {
+    //   console.log('Preroll function: 13:35')
+    //   if (featuredItem || player.options()['data-featured-video-id']) {
+    //     featuredItem = featuredItem || player.options()['data-featured-video-id'];
+    //     player.catalog.getVideo(featuredItem, function (error, video) {
+    //       if (!error) {
+    //         window.setTimeout(function() {
+    //           player.catalog.load(video);
+    //         }, 100);
+    //       }
+    //     });
+    //   }
+    // }
+    //
+    // player.one('loadstart', function() {
+    //   console.log('Load function: 13:35')
+    //   preRoll();
+    // });
+    //
+    // player.one('ended', function() {
+    //   console.log('Ended function: 13:35')
+    //   console.log(player);
+    //
+    //   player.catalog.getVideo('5231307785001', function(error, video) {
+    //     if (!error) {
+    //       console.log('Triggering the close share screen button O_o');
+    //       jQuery('.vjs-close-button').trigger('click');
+    //       window.setTimeout(function() {
+    //         player.catalog.load(video);
+    //         // jQuery('.html5-video-player').removeClass('vjs-controls-disabled');
+    //         // jQuery('.vjs-social-overlay').addClass('vjs-hidden');
+    //         player.play();
+    //       }, 100);
+    //     }
+    //   });
+    // });
   }
 
   videojs.plugin('featured', featured);
