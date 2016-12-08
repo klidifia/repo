@@ -31,11 +31,10 @@
     player.one('ended', function() {
       // jQuery('.vjs-close-button').trigger('click');
       // jQuery('.html5-video-player').removeClass('vjs-controls-disabled');
+
       jQuery('.vjs-social-overlay').addClass('vjs-hidden');
-
-      player.trigger('loadstart');
-
-      // @TODO: We probably want to do something about the .vjs-big-play-button.
+      jQuery('.vjs-big-play-button').addClass('vjs-hidden');
+      player.controls(true);
 
       player.catalog.getVideo('5231307785001', function(error, video) {
         if (!error) {
