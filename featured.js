@@ -13,7 +13,7 @@
     options = mergeOptions(options,settings);
 
     preRoll = function() {
-      console.log('Preroll function: 13:35')
+      console.log('Preroll function: 14:40')
       if (featuredItem || player.options()['data-featured-video-id']) {
         featuredItem = featuredItem || player.options()['data-featured-video-id'];
         player.catalog.getVideo(featuredItem, function (error, video) {
@@ -25,24 +25,17 @@
     }
 
     player.one('loadstart', function() {
-      console.log('Load function: 13:35')
+      console.log('Load function: 14:40')
       preRoll();
     });
 
     player.one('ended', function() {
-      console.log('Ended function: 13:35')
-      console.log(player);
+      console.log('Ended function: 14:40')
 
       player.catalog.getVideo('5231307785001', function(error, video) {
         if (!error) {
-          // console.log('Triggering the close share screen button O_o');
-          // jQuery('.vjs-close-button').trigger('click');
-          window.setTimeout(function() {
-            player.catalog.load(video);
-            // jQuery('.html5-video-player').removeClass('vjs-controls-disabled');
-            // jQuery('.vjs-social-overlay').addClass('vjs-hidden');
-            player.play();
-          }, 100);
+          player.catalog.load(video);
+          player.play();
         }
       });
     });
