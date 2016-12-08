@@ -18,9 +18,7 @@
         featuredItem = featuredItem || player.options()['data-featured-video-id'];
         player.catalog.getVideo(featuredItem, function (error, video) {
           if (!error) {
-            window.setTimeout(function() {
-              player.catalog.load(video);
-            }, 100);
+            player.catalog.load(video);
           }
         });
       }
