@@ -38,7 +38,7 @@
       player.catalog.getVideo('5231307785001', function(error, video) {
         if (!error) {
           console.log('Triggering the close share screen button O_o');
-          $('.vjs-close-button').trigger('click');
+          jQuery('.vjs-close-button').trigger('click');
           window.setTimeout(function() {
             player.catalog.load(video);
             // jQuery('.html5-video-player').removeClass('vjs-controls-disabled');
