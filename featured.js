@@ -13,7 +13,7 @@
     options = mergeOptions(options,settings);
 
     preRoll = function() {
-      console.log('Preroll function: 11:12')
+      console.log('Preroll function: 13:20')
       if (featuredItem || player.options()['data-featured-video-id']) {
         featuredItem = featuredItem || player.options()['data-featured-video-id'];
         player.catalog.getVideo(featuredItem, function (error, video) {
@@ -27,23 +27,22 @@
     }
 
     player.one('loadstart', function() {
-      console.log('Load function: 11:12')
+      console.log('Load function: 13:20')
       preRoll();
     });
 
     player.one('ended', function() {
-      console.log('Ended function: 11:12')
+      console.log('Ended function: 13:20')
+      console.log(player);
 
       player.catalog.getVideo('5231307785001', function(error, video) {
         if (!error) {
           window.setTimeout(function() {
             player.catalog.load(video);
+            jQuery('.html5-video-player').removeClass('vjs-controls-disabled');
             jQuery('.vjs-social-overlay').addClass('vjs-hidden');
-          }, 100);
-          window.setTimeout(function() {
             player.play();
-          }, 500);
-
+          }, 100);
         }
       });
     });
