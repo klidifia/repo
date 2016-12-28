@@ -8,16 +8,17 @@ videojs.plugin('mtsPreroll', function() {
 
   function loadPreroll() {
     prerollVideo = prerollVideo || player.options()['data-preroll-video-id'];
+    mainVideo = mainVideo || player.options()['data-main-video-id'];
     myPlayer.catalog.getVideo(prerollVideo, function (error, video) {
       if (!error) {
         myPlayer.catalog.load(video);
-      }
-    });
-    // Set the poster image of the main video.
-    mainVideo = mainVideo || player.options()['data-main-video-id'];
-    myPlayer.catalog.getVideo(mainVideo, function (error, video) {
-      if (!error) {
-        myPlayer.poster(video.poster);
+        myPlayer.poster(null);
+        // Set the poster image of the main video.
+        myPlayer.catalog.getVideo(mainVideo, function (error, video) {
+          if (!error) {
+            myPlayer.poster(video.poster);
+          }
+        });
       }
     });
   }
