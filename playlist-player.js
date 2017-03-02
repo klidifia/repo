@@ -7,40 +7,41 @@ videojs.plugin('mtsPlaylists', function() {
     return;
   }
 
-  var qs = (function(a) {
-    if (a == "") return {};
-    var b = {};
-    for (var i = 0; i < a.length; ++i)
-    {
-      var p=a[i].split('=', 2);
-      if (p.length == 1)
-        b[p[0]] = "";
-      else
-        b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+  function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
     }
-    return b;
-  })(window.location.search.substr(1).split('&'));
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
 
-  var id = jQuery('ol[data-video-id="' + qs.id + '"]').attr('id');
+  var videoid = getParameterByName('id');
+  var videoIndex = (videoid !== null ? jQuery('ol[data-video-id="' + videoid + '"]').attr('id') : 0);
   var videos = JSON.parse(options['data-videos']);
   var myPlayer = this;
 
   // Listen for the 'ended' event and play the next video.
   myPlayer.on('ended', function() {
-    playVideo();
+    // Cycle to the next video.
+    videoIndex++;
+    if (videoIndex >= videos.length) {
+      jQuery('#' + myPlayer.id_).append('<div class="mts-endscreen vjs-social-overlay vjs-modal-dialog" tabindex="-1" aria-describedby="video-player_endscreen" aria-hidden="false" aria-label="End screen" role="dialog"><div class="vjs-close-button vjs-control vjs-button" tabindex="0" role="button" aria-live="polite" aria-disabled="false" title="Close Modal Dialog" onclick="jQuery(\'#' + myPlayer.id_ + ' .mts-endscreen\').hide();"><span class="vjs-control-text">Close Modal Dialog</span></div><p class="vjs-modal-dialog-description vjs-offscreen" id="video-player_endscreen">This is a modal window. This modal can be closed by activating the close button.</p><div class="vjs-modal-dialog-content" role="document"><img class="endscreen-header" src="/sites/all/themes/mts/images/endscreen-header-thanks.png" /><p class="endscreen-text">Playlist has finished playing</p><img class="endscreen-footer" src="/sites/all/themes/mts/images/endscreen-footer-logo.jpg" /></div></div>');
+    }
+    else {
+      playVideo(videoIndex);
+    }
   });
 
-  function playVideo (id) {
-    // If a particular playlist item was selected.
-    if (typeof id !== 'undefined') {
-      i = id;
-    }
-
+  function playVideo (videoIndex) {
     // Hide the big play button since we are auto-playing.
     myPlayer.bigPlayButton.hide();
 
     // Determine what the next video ID is.
-    var currentVideo = videos[i];
+    var currentVideo = videos[videoIndex];
 
     // Load and play the next video.
     myPlayer.catalog.getVideo(currentVideo.video_id, function (error, video) {
@@ -55,21 +56,18 @@ videojs.plugin('mtsPlaylists', function() {
         jQuery('.mts-social-share-links li.mts-social-share-copy-link input.copy-link-processed').val(currentVideo.url);
 
         myPlayer.catalog.load(video);
-        window.setTimeout(function() {
+        window.setTimeout(function () {
           myPlayer.play();
         }, 800);
       }
     });
-
-    // Cycle to the next video.
-    i++%videos.length;
   }
 
   jQuery('.vjs-playlist').live('click', function () {
-    var id = jQuery(this).attr('id');
-    playVideo(id);
+    videoIndex = jQuery(this).attr('id');
+    playVideo(videoIndex);
   });
 
   // Play the first video to start with.
-  playVideo(id);
+  playVideo(videoIndex);
 });
