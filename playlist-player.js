@@ -64,6 +64,7 @@ videojs.plugin('mtsPlaylists', function() {
   }
 
   jQuery('.vjs-playlist').live('click', function () {
+    jQuery('.mts-endscreen').remove();
     videoIndex = jQuery(this).attr('id');
     playVideo(videoIndex);
   });
