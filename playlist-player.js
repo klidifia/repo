@@ -13,7 +13,7 @@ videojs.plugin('mtsPlaylists', function() {
     }
     name = name.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
+      results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
@@ -48,6 +48,10 @@ videojs.plugin('mtsPlaylists', function() {
       if (!error) {
         // Change the name of the video being played.
         jQuery('h2#video-name').html(currentVideo.title);
+
+        // Add active class to the current video, and remove from others.
+        jQuery('ol.vjs-playlist').removeClass('active');
+        jQuery('ol.vjs-playlist[data-item-id=' + videoIndex + ']').addClass('active');
 
         // Change the share info.
         jQuery('.mts-social-share-links li.mts-social-share-facebook a').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + currentVideo.url);
