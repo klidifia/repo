@@ -3,6 +3,7 @@
  */
 videojs.plugin('mtsCustom', function() {
   // Exit if we are playing a playlist.
+  var player = this;
   var options = player.options();
   if (options.hasOwnProperty('data-videos')){
     return;

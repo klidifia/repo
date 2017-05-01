@@ -2,6 +2,7 @@
  * MTS Custom plugin for continuous playing of videos in a playlist.
  */
 videojs.plugin('mtsPlaylists', function() {
+  var player = this;
   var options = player.options();
   if (!options.hasOwnProperty('data-videos')){
     return;
