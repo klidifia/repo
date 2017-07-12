@@ -2,17 +2,17 @@
  * MTS Custom plugin for preroll videos.
  */
 videojs.plugin('mtsCustom', function() {
-  // Exit if we are playing a playlist.
   var player = this;
   var options = player.options();
-  if (options.hasOwnProperty('data-videos')){
+  // Exit if we are playing a playlist, or a Tamariki list.
+  if ((options.hasOwnProperty('data-videos') || options.hasOwnProperty('data-tamariki-videos'))) {
     return;
   }
 
   var myPlayer = this,
-      preroll = true,
-      prerollVideo,
-      mainVideo;
+    preroll = true,
+    prerollVideo,
+    mainVideo;
 
   function loadPreroll() {
     prerollVideo = prerollVideo || player.options()['data-preroll-video-id'];
