@@ -57,6 +57,7 @@ videojs.plugin('mtsTamariki', function() {
   jQuery('.tamariki-video').live('click', function () {
     jQuery('.mts-endscreen').remove();
     jQuery('.video-js').show();
+    myPlayer.requestFullscreen();
     videoIndex = jQuery(this).attr('id');
 
     // If the same video was exited and entered again - resume the playback.
@@ -68,7 +69,6 @@ videojs.plugin('mtsTamariki', function() {
       // Record the video being played so we can continue with the next one.
       jQuery('#videoindex').val(videoIndex);
     }
-    myPlayer.requestFullscreen();
   });
 
   // When fullscreen is exited, pause and hide the video player.
