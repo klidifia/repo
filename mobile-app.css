@@ -1,0 +1,4 @@
+.vjs-subtitles-button, .vjs-text-track-display, .vjs-caption-settings, .vjs-tracksettings, .vjs-tracksettings-controls, .vjs-captions-button, .vjs-chapters-button, .controls button[data-state="subtitles"] {
+  display: none !important;
+}
+
