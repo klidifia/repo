@@ -7,3 +7,8 @@
   right: 5px;
   top: 5px;
 }
+
+.video-js .vjs-overlay-top-right img {
+  width: 50%;
+  height: 50%;
+}
