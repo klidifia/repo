@@ -1,0 +1,9 @@
+/**
+ * Styling for the video player in both the website and the mobile app.
+ */
+.video-js .vjs-overlay-top-right {
+  position: absolute;
+  padding:10px;
+  right: 5px;
+  top: 5px;
+}
