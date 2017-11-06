@@ -1,0 +1,8 @@
+/**
+ * Styling for the video player in the mobile app.
+ */
+
+/* Hide the social share button. */
+.vjs-trigger-social-control {
+  display: none !important;
+}

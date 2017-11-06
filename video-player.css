@@ -1,13 +1,19 @@
 /**
  * Styling for the video player in both the website and the mobile app.
  */
+
+/* Hide the CC button which can appear in iOS. */
+.vjs-subtitles-button, .vjs-text-track-display, .vjs-caption-settings, .vjs-tracksettings, .vjs-tracksettings-controls, .vjs-captions-button, .vjs-chapters-button, .controls button[data-state="subtitles"] {
+  display: none !important;
+}
+
+/* Positioning for the logo overlay. */
 .video-js .vjs-overlay-top-right {
   position: absolute;
   right: 1%;
   top: 5%;
   width: 17%;
 }
-
 .video-js .vjs-overlay-top-right img {
   width: 45%;
   height: 45%;
