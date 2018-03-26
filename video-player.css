@@ -3,16 +3,16 @@
  */
 
 /* Hide the CC button which can appear in iOS. */
-.vjs-subtitles-button, .vjs-text-track-display, .vjs-caption-settings, .vjs-tracksettings, .vjs-tracksettings-controls, .vjs-captions-button, .vjs-chapters-button, .controls button[data-state="subtitles"] {
+.vjs-subtitles-button, .vjs-text-track-display, .vjs-text-track-settings, .vjs-texttrack-settings, .vjs-caption-settings, .vjs-tracksettings, .vjs-tracksettings-controls, .vjs-captions-button, .vjs-chapters-button, .controls button[data-state="subtitles"] {
   display: none !important;
 }
 
 /* Positioning for the logo overlay. */
 .video-js .vjs-overlay-top-right {
   position: absolute;
-  right: 1%;
-  top: 5%;
-  width: 17%;
+  right: 0.85%;
+  top: 5.1%;
+  width: 16.8%;
 }
 .video-js .vjs-overlay-top-right img {
   width: 45%;
