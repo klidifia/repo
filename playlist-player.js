@@ -32,10 +32,6 @@ registerPlugin('mtsPlaylists', function() {
     // Cycle to the next video.
     videoIndex++;
     if (videoIndex >= videos.length) {
-      // WR#282109: Bail out here if the player has .no-endscreen
-      if (jQuery('#' + myPlayer.id).hasClass('no-endscreen')) {
-        return;
-      }
       jQuery('#' + myPlayer.id_).append('<div class="mts-endscreen vjs-social-overlay vjs-modal-dialog" tabindex="-1" aria-describedby="video-player_endscreen" aria-hidden="false" aria-label="End screen" role="dialog"><button class="vjs-close-button vjs-control vjs-button" tabindex="0" role="button" aria-live="polite" aria-disabled="false" title="Close Modal Dialog" onclick="jQuery(\'#' + myPlayer.id_ + ' .mts-endscreen\').hide();"><span aria-hidden="true" class="vjs-icon-placeholder"></span><span class="vjs-control-text">Close Modal Dialog</span></button><p class="vjs-modal-dialog-description vjs-offscreen" id="video-player_endscreen">This is a modal window. This modal can be closed by activating the close button.</p><div class="vjs-modal-dialog-content" role="document"><img class="endscreen-header" src="/sites/all/themes/mts/images/endscreen-header-thanks.png" /><p class="endscreen-text">Playlist has finished playing</p><img class="endscreen-footer" src="/sites/all/themes/mts/images/endscreen-footer-logo.jpg" /></div></div>');
     }
     else {
